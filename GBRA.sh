@@ -2,11 +2,31 @@
 #find latest file (using -nt)
 #cp latest file to other file locations
 
+if [ ! $1 ] 
+then
+    echo "usage: GBRA.sh [file]"
+    exit 1
+fi
+
 mapfile -t dirArray < dirs.txt
 
-latest=`find "${dirArray[0]}" -name "$1"`
-all=()
-for i in "${dirArray[@]}"
+allSavs=()
+
+#find each save file that exists.
+for i in ${dirArray[@]} 
 do
-    all+="$i/$1"
+    allSavs+=`find $i -name $1`
 done
+
+latest=${allSavs[0]}
+echo $latest
+#find the latest save file
+for i in ${allSavs[@]}
+do
+    echo $i
+    if [[ $i -nt $latest ]]
+    then
+        latest=$i
+    fi
+done
+echo $latest
