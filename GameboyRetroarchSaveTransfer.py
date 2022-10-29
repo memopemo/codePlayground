@@ -1,3 +1,5 @@
+# Not used anymore. Use the Bash specific GBRA shell command.
+
 from io import TextIOWrapper
 import tkinter as tk
 from tkinter import filedialog
