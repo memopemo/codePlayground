@@ -7,6 +7,7 @@ with open(sys.argv[1], 'r') as f:
 
 with open("rv."+sys.argv[1], 'w') as f:
     f.write("[General]\n")
+    
     f.write("Background0=" + lines[4].removeprefix("Background3=")+"\n")
     f.write("Background1=" + lines[3].removeprefix("Background2=")+"\n")
     f.write("Background2=" + lines[2].removeprefix("Background1=")+"\n")

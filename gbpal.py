@@ -12,16 +12,34 @@
 # 
 # IMPORTANT FORMAT INFO:
 # COLOR ORDER MUST BE: 
-#   Black
-#   Dark
-#   Light
 #   White
+#   Light
+#   Dark
+#   Black
 #
 # USE 'gbpalreverser.py' TO REVERSE COLOR ON CONVERTED .PAL FILE IF NECESSARY
 # 
 # by Ryan Trozzolo
 import sys
 
+if(len(sys.argv) == 1):
+    colors = [0,0,0,0]
+    colors[0] = str(int(input("Enter White Hexadecimal:"),16))
+    colors[1] = str(int(input("Enter Light Hexadecimal:"),16))
+    colors[2] = str(int(input("Enter Dark Hexadecimal:"),16))
+    colors[3]= str(int(input("Enter Black Hexadecimal:"),16))
+    output = input("Enter name of palette (.pal will be added on end)")
+    with open(output+'.pal','w') as f:
+        f.write("[General]\n")
+        def writewith(x):
+            for index, item in enumerate(colors):
+                f.write(f"{x}{index}={item}\n")
+        writewith("Background")
+        writewith("Sprite%201")
+        writewith("Sprite%202")
+        print(f"Sucessfully completed: Created {output}.pal")
+    input()
+    exit()
 
 with open(sys.argv[1], 'r') as f:
     lines = f.read().splitlines()
@@ -69,11 +87,11 @@ def PALtoPAL(index:int):
 # convert given hexadecimal to pal
 with open(sys.argv[1] + ".pal", 'w') as f:
     f.write("[General]\n")
-    for i in range(0,4):
-        f.write("Background" + str(i) + '=' + str(determineType(i)) + "\n")
-    for i in range(0,4):
-        f.write("Sprite%201" + str(i) + '=' + str(determineType(i)) + "\n")
-    for i in range(0,4):
-        f.write("Sprite%202" + str(i) + '=' + str(determineType(i)) + "\n")
+    def writewith(x):
+        for i in range(0,4):
+            f.write(f"{x}{i}={determineType(i)}\n")
+    writewith("Background")
+    writewith("Sprite%201")
+    writewith("Sprite%202")
     exit(f"Sucessfully completed: Created {sys.argv[1]}.pal")
 
