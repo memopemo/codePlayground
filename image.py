@@ -1,3 +1,5 @@
+# gets the average color from an image file.
+
 from PIL import Image
 i = Image.open("preview.png")
 sum = (0,0,0)
